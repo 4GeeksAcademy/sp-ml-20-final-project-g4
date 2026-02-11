@@ -14,7 +14,14 @@ st.set_page_config(
 BASE_DIR = Path(__file__).resolve().parent.parent
 MODELS_DIR = BASE_DIR / "models"
 
-PROVINCIAS = ["Madrid", "Barcelona", "Valencia", "Alicante", "Castellón"]
+PROVINCIAS = {
+    "Madrid": "modelo_madrid.pkl",
+    "Barcelona": "modelo_barcelona.pkl",
+    "Valencia": "modelo_valencia.pkl",
+    "Alicante": "modelo_alicante.pkl",
+    "Castellón": "modelo_castellon.pkl"
+}
+
 
 # ---------------- CACHE ----------------
 @st.cache_resource
@@ -39,8 +46,10 @@ provincia = st.selectbox(
 )
 
 # ---------------- MODELO ----------------
-model_path = MODELS_DIR / f"modelo_{provincia.lower()}.pkl"
+model_path = MODELS_DIR / PROVINCIAS[provincia]
 modelo = cargar_modelo(model_path)
+
+
 
 # ---------------- PREDICCIÓN ----------------
 st.subheader(" Predicción para los próximos 4 trimestres")
